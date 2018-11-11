@@ -1,0 +1,22 @@
+{
+  "name": "commandline-canvas",
+  "version": "1.0.0",
+  "description": "An interview test for Credit Suisse",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./src/index.js"
+  },
+  "keywords": [
+    "node",
+    "canvas",
+    "drawing",
+    "testing"
+  ],
+  "author": "R.M.Hill",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^2.19.0",
+    "eslint": "^5.8.0"
+  }
+}
