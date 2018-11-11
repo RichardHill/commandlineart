@@ -4,7 +4,7 @@
   "description": "An interview test for Credit Suisse",
   "main": "./src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "./node_modules/cucumber/bin/cucumber-js ./tests/Features -r ./tests/steps",
     "start": "node ./src/index.js"
   },
   "keywords": [
@@ -18,5 +18,8 @@
   "dependencies": {
     "commander": "^2.19.0",
     "eslint": "^5.8.0"
+  },
+  "devDependencies": {
+    "cucumber": "^5.0.2"
   }
 }
