@@ -1,4 +1,4 @@
-recatangle = (parameters) => {
+rectangle = (parameters) => {
     //Check we have the right parameters.
     const res = parameters.split(" ");
 
@@ -19,4 +19,4 @@ recatangle = (parameters) => {
 
 }
 
-module.exports = reactangle;
+module.exports = rectangle;

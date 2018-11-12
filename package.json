@@ -4,7 +4,7 @@
   "description": "An interview test for Credit Suisse",
   "main": "./src/index.js",
   "scripts": {
-    "test": "./node_modules/cucumber/bin/cucumber-js ./tests/Features -r ./tests/steps",
+    "test": "./node_modules/cucumber/bin/cucumber-js ./tests/features -r ./tests/steps",
     "start": "node ./src/index.js"
   },
   "keywords": [
