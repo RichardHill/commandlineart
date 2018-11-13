@@ -1,4 +1,4 @@
-const canvas = (parameters) => {
+const canvas = (parameters, Canvas) => {
 
     //Check we have the right parameters.
     const res = parameters.split(" ");
@@ -10,11 +10,13 @@ const canvas = (parameters) => {
         return;
     }
 
-    //Lets get some values.
-    const width = res[0];
-    const height = res[1];
+    const width = parseInt(res[0]);
+    const height = parseInt(res[1]);
 
+    //Lets get some values.
     console.log("The values of the incoming parameters are -: width = " + width + " height = " + height);
+
+    Canvas.create(width, height);
 
     return;
 }

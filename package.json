@@ -16,10 +16,11 @@
   "author": "R.M.Hill",
   "license": "ISC",
   "dependencies": {
-    "commander": "^2.19.0",
-    "eslint": "^5.8.0"
+    "commander": "^2.19.0"
   },
   "devDependencies": {
-    "cucumber": "^5.0.2"
+    "cucumber": "^5.0.2",
+    "eslint": "^5.8.0",
+    "winston": "^3.1.0"
   }
 }
