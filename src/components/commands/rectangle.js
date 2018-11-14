@@ -1,21 +1,48 @@
-rectangle = (parameters) => {
+rectangle = (parameters, Canvas) => {
     //Check we have the right parameters.
     const res = parameters.split(" ");
 
     //Check we have 4 elements in the array = if not return an error.
     //The user can supply more than 4 parameters but we won't be interested.
     if (res.length < 4) {
-        console.log("Error - you have not entered the correct parametesr for the Canvas");
+        console.log("Error - there was a problem processing the command (eg r 2 2 4 4)");
         return;
     }
 
     //Lets get some values.
-    const x1 = res[0];
-    const y1 = res[1];
-    const x2 = res[2];
-    const y2 = res[3];
+    const x1 = parseInt(res[0]);
+    const y1 = parseInt(res[1]);
+    const x2 = parseInt(res[2]);
+    const y2 = parseInt(res[3]);
 
-    console.log("The values of the incoming parameters are -: x1 = " + x1 + " y1 = " + y1 + " x2 = " + x2 + " y2 = " + y2);
+    //Early out - only accepting top down cases
+    if (x2 > x1 && y2 > y1) {
+        //Top line goes from x1,y1 to x2,y1
+        let tmpX1 = x1;
+        while (tmpX1 != x2) {
+            Canvas.plot(y1, tmpX1, '*');
+            tmpX1++;
+        }
+
+        //Draw the extents
+        let tmpY1 = y1;
+        while (tmpY1 != y2) {
+            Canvas.plot(tmpY1, x1, '*');
+            Canvas.plot(tmpY1, x2, '*');
+            tmpY1++;
+        }
+
+        //Draw the bottom line.
+        let tmpX2 = x1;
+        while (tmpX2 != x2 + 1) {
+            Canvas.plot(y2, tmpX2, '*');
+            tmpX2++;
+        }
+
+        Canvas.display();
+    } else {
+        //Report here that we do not process the type of input supplied
+    }
 
 }
 

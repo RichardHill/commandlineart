@@ -51,7 +51,6 @@ canvas.create = (width, height) => {
 
 // Will draw a characeter at a particular position
 canvas.plot = (x, y, character) => {
-
     if (canvas.checkbounds(x, y))
         canvasArea[x][y] = character;
 }
@@ -88,7 +87,6 @@ canvas.display = () => {
     let aLine = '';
 
     canvasArea.forEach(element => {
-
         element.forEach(location => {
             aLine += location;
         });
@@ -100,5 +98,34 @@ canvas.display = () => {
     });
 }
 
+canvas.fill = (x, y, c) => {
+
+    //Get the starting positi
+    //Lets start at the point that the user has requested and just try and fill....
+    for (let indexX = x; indexX < canvasArea.length; indexX++) {
+        const element = canvasArea[indexX];
+
+        for (let indexY = 0; indexY < element.length; indexY++) {
+            let position = element[indexY];
+            //console.log('Location has -: ' + position + "in it");
+            if (position === ' ') {
+                canvas.plot(indexX, indexY, c);
+            }
+        }
+    }
+}
+
+canvas.clear = () => {
+    //We should clear the canvas
+    for (let indexX = 1; indexX < canvasArea.length - 1; indexX++) {
+        const element = canvasArea[indexX];
+
+        for (let indexY = 1; indexY < element.length - 1; indexY++) {
+            let position = element[indexY];
+            canvas.plot(indexX, indexY, ' ');
+
+        }
+    }
+}
 
 module.exports = canvas;

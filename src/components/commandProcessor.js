@@ -2,12 +2,11 @@ const BorderCommand = require('./commands/border');
 const CanvasCommand = require('./commands/canvas');
 const LineCommand = require('./commands/line');
 const QuitCommand = require('./commands/quit');
+const EmptyCommand = require('./commands/empty');
 const RectangleCommand = require('./commands/rectangle');
 const Messages = require('../utils/constants');
 const Canvas = require('./canvas');
 const winston = require('winston');
-
-
 
 //Set up our logger object,
 const logger = winston.createLogger({
@@ -23,6 +22,7 @@ const commandsObject = {
     Rectangle: 'r',
     Border: 'b',
     Quit: 'q',
+    Empty: 'e',
 };
 
 let commands = new Array();
@@ -33,7 +33,6 @@ CommandProcessor.ProcessCommand = (input = '') => {
 
     //We get the first character from the input and match it against our known list of commands.
     //If we do not have a match we just say it is an unknown command.
-
     let commands = new Array();
 
     //Early out if we do not have anything.
@@ -45,7 +44,7 @@ CommandProcessor.ProcessCommand = (input = '') => {
     //Store the parameters
     const parameters = input.substring(2);
 
-    //this.commands.push({ command, parameters });
+    commands.push({ command, parameters });
 
     switch (command) {
 
@@ -69,6 +68,11 @@ CommandProcessor.ProcessCommand = (input = '') => {
             break;
         }
 
+        case commandsObject.Empty: {
+            EmptyCommand(Canvas);
+            break;
+        }
+
         case commandsObject.Quit: {
             QuitCommand();
             break;
@@ -83,9 +87,9 @@ CommandProcessor.ProcessCommand = (input = '') => {
         }
     }
 
-    commands.forEach(element => {
-        console.log("\n Command -: " + element.command + " with parameters -: " + element.parameters);
-    });
+    // commands.forEach(element => {
+    //     console.log("\n Command -: " + element.command + " with parameters -: " + element.parameters);
+    // });
 }
 
 module.exports = CommandProcessor;
