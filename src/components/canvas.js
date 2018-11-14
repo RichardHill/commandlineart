@@ -21,42 +21,47 @@ canvas.create = (width, height) => {
         canvasArea[index] = new Array(width);
     }
 
-    //Now add in our characters.
     //Add the top line of the canvas.
-    for (let index = 0; index < canvasArea[0].length; index++) {
-        canvas.plot(0, index, '-');
+    for (let topLineIndex = 0; topLineIndex < canvasArea[0].length; topLineIndex++) {
+        canvas.plot(topLineIndex, 0, '-');
     }
 
     //And the lines inbetween
-    for (let firstIndex = 1; firstIndex < canvasArea.length; firstIndex++) {
+    for (let firstIndex = 1; firstIndex < canvasArea.length - 1; firstIndex++) {
         //Set the first and last characters of the array.
-        canvas.plot(firstIndex, 0, '|');
+        canvas.plot(0, firstIndex, '|');
 
-        for (let secondIndex = 1; secondIndex < canvasArea[firstIndex].length; secondIndex++) {
-            canvas.plot(firstIndex, secondIndex, ' ');
+        for (let secondIndex = 1; secondIndex < canvasArea[firstIndex].length - 1; secondIndex++) {
+            canvas.plot(secondIndex, firstIndex, ' ');
         }
 
-        canvas.plot(firstIndex, width, '|');
+        canvas.plot(width - 1, firstIndex, '|');
     }
 
     //And the bottom line.
-    for (let index = 0; index < canvasArea[height - 1].length; index++) {
-        canvas.plot(height - 1, index, '-');
+    for (let index = 0; index < canvasArea[0].length; index++) {
+        canvas.plot(index, height - 1, '-');
     }
+
+    console.log("The number of characters in the canvas is -: " + canvas.count());
 
     //Draw what we have in the canvas.
     canvas.display();
 }
 
-
 // Will draw a characeter at a particular position
-canvas.plot = (x, y, character) => {
-    if (canvas.checkbounds(x, y))
-        canvasArea[x][y] = character;
+canvas.plot = (x, y, character, checkbounds = false) => {
+    if (checkbounds) {
+        if (canvas.checkbounds(x, y))
+            canvasArea[y][x] = character;
+    } else {
+        canvasArea[y][x] = character;
+    }
 }
 
 canvas.checkbounds = (x, y) => {
-    if ((x <= canvasArea.length) && (y <= canvasArea[0].length)) {
+    //Remember to take into account the border
+    if ((x > 0 && x <= canvasArea[0].length - 1) && (y > 0 && y <= canvasArea.length)) {
         return true;
     }
     else {
@@ -65,17 +70,19 @@ canvas.checkbounds = (x, y) => {
 }
 
 canvas.get = (x, y) => {
-
-    //Check we are in bounds.
-    //check we have been created.
-    return canvasArea[x][y];
+    if (canvas !== null && canvas.checkbouns(x, y)) {
+        return canvasArea[x][y];
+    }
 }
 
 canvas.count = () => {
     let count = 0;
     //Return a count of the number of characters we have in the canvas.
-    array.forEach(element => {
-        count += element.length;
+    canvasArea.forEach(element => {
+        element.forEach(location => {
+            if (location !== ' ')
+                count++;
+        });
     });
 
     return count;

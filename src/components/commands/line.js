@@ -23,25 +23,24 @@ line = (parameters, Canvas) => {
     //Check we have a horizontal or vertical line.
     if (x1 != x2 && y1 != y2) {
         // line is neither horizontal or vertical 
+        console.log("Neither horizontal or vertical")
     }
 
     if (y1 === y2) { //Horizontal.
 
         let tmpX1 = x1;
 
-        while (tmpX1 != x2) {
-            Canvas.plot(y1, tmpX1, 'x');
+        while (tmpX1 <= x2) {
+            Canvas.plot(tmpX1, y1, 'x', true);
             tmpX1++;
         }
     }
 
     if (x1 === x2) { // Vertical Line
-        console.log("Drawing a Verical line");
-
         let tmpY1 = y1;
 
-        while (tmpY1 != y2) {
-            Canvas.plot(tmpY1, x1, 'x');
+        while (tmpY1 <= y2) {
+            Canvas.plot(x1, tmpY1, 'x', true);
             tmpY1++;
         }
     }

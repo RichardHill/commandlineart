@@ -10,10 +10,11 @@ const canvas = (parameters, Canvas) => {
         return;
     }
 
+    const canvasAreaOffset = 2;
     const width = parseInt(res[0]);
     const height = parseInt(res[1]);
 
-    Canvas.create(width, height);
+    Canvas.create(width + canvasAreaOffset, height + canvasAreaOffset);
 
     return;
 }

@@ -44,10 +44,10 @@ CommandProcessor.ProcessCommand = (input = '') => {
     //Store the parameters
     const parameters = input.substring(2);
 
+    //Add this to our list of commands
     commands.push({ command, parameters });
 
     switch (command) {
-
         case commandsObject.Canvas: {
             CanvasCommand(parameters, Canvas);
             break;
@@ -86,10 +86,6 @@ CommandProcessor.ProcessCommand = (input = '') => {
             break;
         }
     }
-
-    // commands.forEach(element => {
-    //     console.log("\n Command -: " + element.command + " with parameters -: " + element.parameters);
-    // });
 }
 
 module.exports = CommandProcessor;

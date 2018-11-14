@@ -19,23 +19,23 @@ rectangle = (parameters, Canvas) => {
     if (x2 > x1 && y2 > y1) {
         //Top line goes from x1,y1 to x2,y1
         let tmpX1 = x1;
-        while (tmpX1 != x2) {
-            Canvas.plot(y1, tmpX1, '*');
+        while (tmpX1 <= x2 + 1) {
+            Canvas.plot(tmpX1, y1, '*');
             tmpX1++;
         }
 
         //Draw the extents
         let tmpY1 = y1;
-        while (tmpY1 != y2) {
-            Canvas.plot(tmpY1, x1, '*');
-            Canvas.plot(tmpY1, x2, '*');
+        while (tmpY1 <= y2) {
+            Canvas.plot(x1, tmpY1, '*');
+            Canvas.plot(x2 + 1, tmpY1, '*');
             tmpY1++;
         }
 
         //Draw the bottom line.
         let tmpX2 = x1;
-        while (tmpX2 != x2 + 1) {
-            Canvas.plot(y2, tmpX2, '*');
+        while (tmpX2 <= x2 + 1) {
+            Canvas.plot(tmpX2, y2, '*');
             tmpX2++;
         }
 
