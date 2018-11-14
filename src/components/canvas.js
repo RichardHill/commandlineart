@@ -109,12 +109,11 @@ canvas.fill = (x, y, c) => {
 
     //Get the starting positi
     //Lets start at the point that the user has requested and just try and fill....
-    for (let indexX = x; indexX < canvasArea.length; indexX++) {
-        const element = canvasArea[indexX];
+    for (let indexY = y; indexY < canvasArea.length; indexY++) {
+        const element = canvasArea[indexY];
 
-        for (let indexY = 0; indexY < element.length; indexY++) {
-            let position = element[indexY];
-            //console.log('Location has -: ' + position + "in it");
+        for (let indexX = 0; indexX < element.length; indexX++) {
+            let position = element[indexX];
             if (position === ' ') {
                 canvas.plot(indexX, indexY, c);
             }
