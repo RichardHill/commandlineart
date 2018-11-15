@@ -1,3 +1,4 @@
+const Messages = require('../../utils/constants');
 
 line = (parameters, Canvas) => {
     //Check we have the right parameters.
@@ -5,9 +6,8 @@ line = (parameters, Canvas) => {
 
     //Check we have 4 elements in the array = if not return an error.
     //The user can supply more than 4 parameters but we won't be interested.
-    if (res.length < 4) {
-        console.log("Error - you have not entered the correct parametesr for the Canvas");
-        return;
+    if (res.length === 0 || res.length < 4) {
+        return Messages.invalid_command_parameters;
     }
 
     //Lets get some values.
@@ -16,14 +16,10 @@ line = (parameters, Canvas) => {
     const x2 = parseInt(res[2]);
     const y2 = parseInt(res[3]);
 
-    //Check that the line is within the bounds of the canvas.
-    //Canvas.checkbounds(x1, y1);
-    //Canvas.checkvounds(x2, y2);
-
     //Check we have a horizontal or vertical line.
     if (x1 != x2 && y1 != y2) {
         // line is neither horizontal or vertical 
-        console.log("Neither horizontal or vertical")
+        return Messages.line_creation_non_horizontal_or_vertical;
     }
 
     if (y1 === y2) { //Horizontal.

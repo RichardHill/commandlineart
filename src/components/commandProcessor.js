@@ -10,9 +10,13 @@ const winston = require('winston');
 
 //Set up our logger object,
 const logger = winston.createLogger({
+    format: winston.format.combine(
+        winston.format.timestamp(),
+        winston.format.json()
+    ),
     transports: [
-        new winston.transports.Console(),
-        new winston.transports.File({ filename: 'combined.log' })
+        new (winston.transports.Console)({ 'timestamp': true }),
+        new (winston.transports.File)({ filename: 'combined.log', 'timestamp': true })
     ]
 });
 
@@ -31,6 +35,7 @@ const CommandProcessor = () => { };
 
 CommandProcessor.ProcessCommand = (input = '') => {
 
+    let errorMessage = null;
     //We get the first character from the input and match it against our known list of commands.
     //If we do not have a match we just say it is an unknown command.
     let commands = new Array();
@@ -49,32 +54,32 @@ CommandProcessor.ProcessCommand = (input = '') => {
 
     switch (command) {
         case commandsObject.Canvas: {
-            CanvasCommand(parameters, Canvas);
+            errorMessage = CanvasCommand(parameters, Canvas);
             break;
         }
 
         case commandsObject.Line: {
-            LineCommand(parameters, Canvas);
+            errorMessage = LineCommand(parameters, Canvas);
             break;
         }
 
         case commandsObject.Rectangle: {
-            RectangleCommand(parameters, Canvas);
+            errorMessage = RectangleCommand(parameters, Canvas);
             break;
         }
 
         case commandsObject.Border: {
-            BorderCommand(parameters, Canvas);
+            errorMessage = BorderCommand(parameters, Canvas);
             break;
         }
 
         case commandsObject.Empty: {
-            EmptyCommand(Canvas);
+            errorMessage = EmptyCommand(Canvas);
             break;
         }
 
         case commandsObject.Quit: {
-            QuitCommand();
+            errorMessage = QuitCommand();
             break;
         }
 
@@ -86,6 +91,24 @@ CommandProcessor.ProcessCommand = (input = '') => {
             break;
         }
     }
+
+    if (errorMessage) {
+        logger.log({
+            level: 'info',
+            message: errorMessage
+        });
+    }
+
+    return errorMessage;
 }
+
+CommandProcessor.getCanvas = () => {
+    return Canvas;
+}
+
+CommandProcessor.getLogger = () => {
+    return logger;
+}
+
 
 module.exports = CommandProcessor;

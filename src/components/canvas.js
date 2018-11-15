@@ -12,6 +12,7 @@ let canvasArea = [];
 const canvas = () => { };
 
 canvas.create = (width, height) => {
+
     //Check we have the right parameters.
     if (width === null || height === null) return;
 
@@ -42,8 +43,6 @@ canvas.create = (width, height) => {
     for (let index = 0; index < canvasArea[0].length; index++) {
         canvas.plot(index, height - 1, '-');
     }
-
-    console.log("The number of characters in the canvas is -: " + canvas.count());
 
     //Draw what we have in the canvas.
     canvas.display();
@@ -77,19 +76,19 @@ canvas.get = (x, y) => {
 
 canvas.count = () => {
     let count = 0;
-    //Return a count of the number of characters we have in the canvas.
-    canvasArea.forEach(element => {
-        element.forEach(location => {
+
+    for (let firstIndex = 1; firstIndex < canvasArea.length - 1; firstIndex++) {
+        for (let secondIndex = 1; secondIndex < canvasArea[firstIndex].length - 1; secondIndex++) {
+            let location = canvasArea[firstIndex][secondIndex];
             if (location !== ' ')
                 count++;
-        });
-    });
+        }
+    }
 
     return count;
 }
 
 canvas.display = () => {
-
     //Simply iterate over the array we have and print it out to the screen.
     let aLine = '';
 
@@ -107,7 +106,31 @@ canvas.display = () => {
 
 canvas.fill = (x, y, c) => {
 
-    //Get the starting positi
+    // To effect flood fill we will need to take every position in the grid 
+    // and see if it is enclosed at some point to the extents of the grid.
+    // If all 8 surrounding areas are blocked then we cannot fill the spot in.
+    // We will not always need to check all 8 positions unless we are a space into the grid.
+    // eg the position belowe will only require
+    //
+    //  --------------
+    //  |0x
+    //  |xx
+    //  |
+    //
+    //  checking in the x positions.
+    //  so three checks.
+    //
+    // However this position denoted below 
+    //
+    // -----------------------
+    // |
+    // |       xxx
+    // |       xox
+    // |       xxx
+    // |
+    //
+    // Will required 8 checks to see if it is possible to fill the area.
+
     //Lets start at the point that the user has requested and just try and fill....
     for (let indexY = y; indexY < canvasArea.length; indexY++) {
         const element = canvasArea[indexY];
@@ -132,6 +155,18 @@ canvas.clear = () => {
 
         }
     }
+}
+
+canvas.height = () => {
+    const canvasEdge = 2;
+    if (canvasArea == null) return -1;
+    return canvasArea.length - canvasEdge;
+}
+
+canvas.width = () => {
+    const canvasEdge = 2;
+    if (canvasArea == null) return -1;
+    return canvasArea[0].length - canvasEdge;
 }
 
 module.exports = canvas;
