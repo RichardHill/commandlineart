@@ -29,8 +29,6 @@ const commandsObject = {
     Empty: 'e',
 };
 
-let commands = new Array();
-
 const CommandProcessor = () => { };
 
 CommandProcessor.ProcessCommand = (input = '') => {
@@ -48,9 +46,6 @@ CommandProcessor.ProcessCommand = (input = '') => {
 
     //Store the parameters
     const parameters = input.substring(2);
-
-    //Add this to our list of commands
-    commands.push({ command, parameters });
 
     switch (command) {
         case commandsObject.Canvas: {

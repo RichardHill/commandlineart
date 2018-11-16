@@ -1,6 +1,17 @@
 const Messages = require('../../utils/constants');
 
 line = (parameters, Canvas) => {
+
+    //Check we have a canvas.
+    if (Canvas === null) {
+        return Messages.no_canvas_created;
+    }
+
+    //Check for some command parameters
+    if (parameters.length === 0) {
+        return Messages.no_command_parameters;
+    }
+
     //Check we have the right parameters.
     const res = parameters.split(" ");
 
@@ -23,21 +34,14 @@ line = (parameters, Canvas) => {
     }
 
     if (y1 === y2) { //Horizontal.
-
-        let tmpX1 = x1;
-
-        while (tmpX1 <= x2) {
-            Canvas.plot(tmpX1, y1, 'x', true);
-            tmpX1++;
+        for (let index = x1; index <= x2; index++) {
+            Canvas.plot(index, y1, 'x', true);
         }
     }
 
     if (x1 === x2) { // Vertical Line
-        let tmpY1 = y1;
-
-        while (tmpY1 <= y2) {
-            Canvas.plot(x1, tmpY1, 'x', true);
-            tmpY1++;
+        for (let index = y1; index <= y2; index++) {
+            Canvas.plot(x1, index, 'x', true);
         }
     }
 

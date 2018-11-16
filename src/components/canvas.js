@@ -80,8 +80,9 @@ canvas.count = () => {
     for (let firstIndex = 1; firstIndex < canvasArea.length - 1; firstIndex++) {
         for (let secondIndex = 1; secondIndex < canvasArea[firstIndex].length - 1; secondIndex++) {
             let location = canvasArea[firstIndex][secondIndex];
-            if (location !== ' ')
+            if (location !== ' ') {
                 count++;
+            }
         }
     }
 

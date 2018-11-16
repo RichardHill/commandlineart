@@ -19,7 +19,7 @@ When('I process the Line command {string} and parameters {int} {int} {int} {int}
     return callback(null);
 });
 
-When('I process the command {string} and incorrect parameters {int} {int} {int} {int}', function (command, X1, Y1, X2, Y2, callback) {
+When('I process the Line command {string} and incorrect parameters {int} {int} {int} {int}', function (command, X1, Y1, X2, Y2, callback) {
     //Create the canvas first.
     commandProcessor.ProcessCommand('c 20 20');
     let theFullCommand = command + ' ' + X1 + ' ' + Y1 + ' ' + X2 + ' ' + Y2;
