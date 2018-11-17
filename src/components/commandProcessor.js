@@ -4,6 +4,7 @@ const LineCommand = require('./commands/line');
 const QuitCommand = require('./commands/quit');
 const EmptyCommand = require('./commands/empty');
 const RectangleCommand = require('./commands/rectangle');
+const DisplayCommand = require('./commands/display');
 const Messages = require('../utils/constants');
 const Canvas = require('./canvas');
 const winston = require('winston');
@@ -11,11 +12,10 @@ const winston = require('winston');
 //Set up our logger object,
 const logger = winston.createLogger({
     format: winston.format.combine(
-        winston.format.timestamp(),
         winston.format.json()
     ),
     transports: [
-        new (winston.transports.Console)({ 'timestamp': true }),
+        new (winston.transports.Console)({ format: winston.format.simple() }),
         new (winston.transports.File)({ filename: 'combined.log', 'timestamp': true })
     ]
 });
@@ -25,8 +25,9 @@ const commandsObject = {
     Line: 'l',
     Rectangle: 'r',
     Border: 'b',
-    Quit: 'q',
+    Display: 'd',
     Empty: 'e',
+    Quit: 'q',
 };
 
 const CommandProcessor = () => { };
@@ -73,8 +74,13 @@ CommandProcessor.ProcessCommand = (input = '') => {
             break;
         }
 
+        case commandsObject.Display: {
+            errorMessage = DisplayCommand(Canvas);
+            break;
+        }
+
         case commandsObject.Quit: {
-            errorMessage = QuitCommand();
+            errorMessage = QuitCommand(logger);
             break;
         }
 

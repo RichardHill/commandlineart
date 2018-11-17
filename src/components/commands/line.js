@@ -22,14 +22,15 @@ line = (parameters, Canvas) => {
     }
 
     //Lets get some values.
-    const x1 = parseInt(res[0]);
-    const y1 = parseInt(res[1]);
-    const x2 = parseInt(res[2]);
-    const y2 = parseInt(res[3]);
+    const [tmpX1, tmpY1, tmpX2, tmpY2] = res;
+
+    const x1 = parseInt(tmpX1);
+    const y1 = parseInt(tmpY1);
+    const x2 = parseInt(tmpX2);
+    const y2 = parseInt(tmpY2);
 
     //Check we have a horizontal or vertical line.
     if (x1 != x2 && y1 != y2) {
-        // line is neither horizontal or vertical 
         return Messages.line_creation_non_horizontal_or_vertical;
     }
 
@@ -39,14 +40,13 @@ line = (parameters, Canvas) => {
         }
     }
 
-    if (x1 === x2) { // Vertical Line
+    if (x1 === x2) { // Vertical
         for (let index = y1; index <= y2; index++) {
             Canvas.plot(x1, index, 'x', true);
         }
     }
 
     Canvas.display();
-
 }
 
 module.exports = line;

@@ -21,12 +21,9 @@ const border = (parameters, Canvas) => {
         return Messages.invalid_command_parameters
     }
 
-    //Lets get some values.
-    const x = parseInt(res[0]);
-    const y = parseInt(res[1]);
-    const c = res[2];
+    const [x, y, c] = res;
 
-    Canvas.fill(x, y, c);
+    Canvas.fill(parseInt(x), parseInt(y), c);
 
     Canvas.display();
 }

@@ -16,8 +16,10 @@ const canvas = (parameters, Canvas) => {
     }
 
     const canvasAreaOffset = 2;
-    const width = parseInt(res[0]);
-    const height = parseInt(res[1]);
+    const [tmpWidth, tmpHeight] = res;
+
+    const width = parseInt(tmpWidth);
+    const height = parseInt(tmpHeight);
 
     //Do the values make sense?
     if (width <= 0 || height <= 0) {

@@ -21,11 +21,13 @@ rectangle = (parameters, Canvas) => {
         return Messages.invalid_command_parameters;
     }
 
-    //Lets get some values.
-    const x1 = parseInt(res[0]);
-    const y1 = parseInt(res[1]);
-    const x2 = parseInt(res[2]);
-    const y2 = parseInt(res[3]);
+    //Lets get some values, destructure
+    const [tmpx1, tmpy1, tmpx2, tmpy2] = res;
+    //And convert.
+    const x1 = parseInt(tmpx1);
+    const y1 = parseInt(tmpy1);
+    const x2 = parseInt(tmpx2);
+    const y2 = parseInt(tmpy2);
 
     //Early out - only accepting top down cases
     if (x2 > x1 && y2 > y1) {
@@ -53,9 +55,8 @@ rectangle = (parameters, Canvas) => {
 
         Canvas.display();
     } else {
-        //Report here that we do not process the type of input supplied
+        return Messages.rectangle_incorrectly_specified;
     }
-
 }
 
 module.exports = rectangle;
