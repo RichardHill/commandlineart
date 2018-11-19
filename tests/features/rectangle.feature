@@ -13,3 +13,10 @@ Feature: Rectangle Creation
         Given I run the app 
         When I process the Rectangle command 'r'
         Then I see the Rectangle error message "Rectangle creation failed, no parameters specified"
+
+    Scenario: Creating a Rectangle that is not in the canvas
+        Given I run the app 
+        When I process the Rectangle command 'r' and parameters 1 1 40 40
+        Then I see the Rectangle canvas specific error message 'The rectangle parameters are outside of the canvas'
+
+    

@@ -29,6 +29,10 @@ rectangle = (parameters, Canvas) => {
     const x2 = parseInt(tmpx2);
     const y2 = parseInt(tmpy2);
 
+    //Check that we fit on the canvas.
+    if (!Canvas.checkbounds(x1, y1) || !Canvas.checkbounds(x2, y2)) {
+        return Messages.rectangle_parameters_outside_of_cavas;
+    }
     //Early out - only accepting top down cases
     if (x2 > x1 && y2 > y1) {
         //Top line goes from x1,y1 to x2,y1
@@ -54,6 +58,7 @@ rectangle = (parameters, Canvas) => {
         }
 
         Canvas.display();
+
     } else {
         return Messages.rectangle_incorrectly_specified;
     }

@@ -41,3 +41,9 @@ Then('I see the line specific error message {string}', function (errorMessage) {
     assert.equal(errorMessage, messages.line_creation_non_horizontal_or_vertical);
     return null;
 });
+
+Then('I see the line canvas specific error message {string}', function (errorMessage) {
+    // Write code here that turns the phrase above into concrete actions
+    assert.equal(errorMessage, messages.line_creation_falls_outside_of_canvas);
+    return null;
+});

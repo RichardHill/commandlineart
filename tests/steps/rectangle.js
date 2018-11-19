@@ -47,3 +47,9 @@ Then('I see the Rectangle error message {string}', function (errorMessage) {
     assert.equal(errorMessage, messages.rectangle_creation_failed);
     return null;
 });
+
+Then('I see the Rectangle canvas specific error message {string}', function (errorMessage) {
+    // Write code here that turns the phrase above into concrete actions
+    assert.equal(errorMessage, messages.rectangle_parameters_outside_of_cavas);
+    return null;
+});

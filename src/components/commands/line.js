@@ -29,6 +29,11 @@ line = (parameters, Canvas) => {
     const x2 = parseInt(tmpX2);
     const y2 = parseInt(tmpY2);
 
+    //Check that we are inside the canvas
+    if (!Canvas.checkbounds(x1, y1) || !Canvas.checkbounds(x2, y2)) {
+        return Messages.line_creation_falls_outside_of_canvas;
+    }
+
     //Check we have a horizontal or vertical line.
     if (x1 != x2 && y1 != y2) {
         return Messages.line_creation_non_horizontal_or_vertical;
