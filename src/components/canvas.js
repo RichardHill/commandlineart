@@ -133,16 +133,87 @@ canvas.fill = (x, y, c) => {
     // Will required 8 checks to see if it is possible to fill the area.
 
     //Lets start at the point that the user has requested and just try and fill....
-    for (let indexY = y; indexY < canvasArea.length; indexY++) {
-        const element = canvasArea[indexY];
+    // for (let indexY = y; indexY < canvasArea.length; indexY++) {
+    //     const element = canvasArea[indexY];
 
-        for (let indexX = 0; indexX < element.length; indexX++) {
-            let position = element[indexX];
-            if (position === ' ') {
-                canvas.plot(indexX, indexY, c);
+    //     for (let indexX = 0; indexX < element.length; indexX++) {
+    //         let position = element[indexX];
+    //         if (position === ' ') {
+    //             canvas.plot(indexX, indexY, c);
+    //         }
+    //     }
+    // }
+
+    //we have a start position. If it is already occupied early out.
+    //Get the first character of the start location and make sure it is empty.
+    let startPosition = canvas.get(x, y);
+
+    const leftBorder = 0;
+    const topBorder = 0;
+    const rightBotfer = canvas.length;
+    const topBorder = canvas[0].length;
+
+    //Go up.
+    for (let top = y; index < topBorder; index--) {
+
+        canvasArea[x, top];
+
+    }
+
+    //Go down. 
+
+    //Go left.
+
+    //Go right.
+
+    let pixelStack = [[x, y]];
+
+    while (pixelStack.length) {
+        var newPos, x, y, pixelPos, reachLeft, reachRight;
+        newPos = pixelStack.pop();
+        x = newPos[0];
+        y = newPos[1];
+
+        pixelPos = (y * canvasWidth + x) * 4;
+        while (y-- >= drawingBoundTop && matchStartColor(pixelPos)) {
+            pixelPos -= canvasWidth * 4;
+        }
+        pixelPos += canvasWidth * 4;
+        ++y;
+        reachLeft = false;
+        reachRight = false;
+        while (y++ < canvasHeight - 1 && matchStartColor(pixelPos)) {
+            colorPixel(pixelPos);
+
+            if (x > 0) {
+                if (matchStartColor(pixelPos - 4)) {
+                    if (!reachLeft) {
+                        pixelStack.push([x - 1, y]);
+                        reachLeft = true;
+                    }
+                }
+                else if (reachLeft) {
+                    reachLeft = false;
+                }
             }
+
+            if (x < canvasWidth - 1) {
+                if (matchStartColor(pixelPos + 4)) {
+                    if (!reachRight) {
+                        pixelStack.push([x + 1, y]);
+                        reachRight = true;
+                    }
+                }
+                else if (reachRight) {
+                    reachRight = false;
+                }
+            }
+
+            pixelPos += canvasWidth * 4;
         }
     }
+
+
 }
 
 canvas.clear = () => {

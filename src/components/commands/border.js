@@ -23,6 +23,10 @@ const border = (parameters, Canvas) => {
 
     const [x, y, c] = res;
 
+    if (!Canvas.checkbounds(x, y)) {
+        return Messages.border_creation_falls_outside_of_canvas;
+    }
+
     Canvas.fill(parseInt(x), parseInt(y), c);
 
     Canvas.display();
