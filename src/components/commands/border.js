@@ -21,13 +21,16 @@ const border = (parameters, Canvas) => {
         return Messages.invalid_command_parameters
     }
 
-    const [x, y, c] = res;
+    const [tmpX, tmpY, c] = res;
+
+    const x = parseInt(tmpX);
+    const y = parseInt(tmpY);
 
     if (!Canvas.checkbounds(x, y)) {
         return Messages.border_creation_falls_outside_of_canvas;
     }
 
-    Canvas.fill(parseInt(x), parseInt(y), c);
+    Canvas.floodfill(x, y, c);
 
     Canvas.display();
 }

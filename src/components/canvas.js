@@ -8,6 +8,7 @@
 //
 
 let canvasArea = [];
+let Stack = [];
 
 const canvas = () => { };
 
@@ -69,8 +70,8 @@ canvas.checkbounds = (x, y) => {
 }
 
 canvas.get = (x, y) => {
-    if (canvas !== null && canvas.checkbouns(x, y)) {
-        return canvasArea[x][y];
+    if (canvasArea !== null && canvas.checkbounds(x, y)) {
+        return canvasArea[y][x];
     }
 }
 
@@ -105,114 +106,32 @@ canvas.display = () => {
     });
 }
 
-canvas.fill = (x, y, c) => {
+canvas.positionFilled = (x, y) => {
+    return (canvas.get(x, y) !== ' ' ? true : false);
+}
 
-    // To effect flood fill we will need to take every position in the grid 
-    // and see if it is enclosed at some point to the extents of the grid.
-    // If all 8 surrounding areas are blocked then we cannot fill the spot in.
-    // We will not always need to check all 8 positions unless we are a space into the grid.
-    // eg the position belowe will only require
-    //
-    //  --------------
-    //  |0x
-    //  |xx
-    //  |
-    //
-    //  checking in the x positions.
-    //  so three checks.
-    //
-    // However this position denoted below 
-    //
-    // -----------------------
-    // |
-    // |       xxx
-    // |       xox
-    // |       xxx
-    // |
-    //
-    // Will required 8 checks to see if it is possible to fill the area.
+canvas.floodfill = (x, y, c) => {
+    //Due to javascript having a limited stack we are going to have
+    //to impletment the stack ourselves to get around it. We do this
+    //by using javascript arrays and pop and push.
+    canvas.floodplot(x, y, c);
 
-    //Lets start at the point that the user has requested and just try and fill....
-    // for (let indexY = y; indexY < canvasArea.length; indexY++) {
-    //     const element = canvasArea[indexY];
-
-    //     for (let indexX = 0; indexX < element.length; indexX++) {
-    //         let position = element[indexX];
-    //         if (position === ' ') {
-    //             canvas.plot(indexX, indexY, c);
-    //         }
-    //     }
-    // }
-
-    //we have a start position. If it is already occupied early out.
-    //Get the first character of the start location and make sure it is empty.
-    let startPosition = canvas.get(x, y);
-
-    const leftBorder = 0;
-    const topBorder = 0;
-    const rightBotfer = canvas.length;
-    const topBorder = canvas[0].length;
-
-    //Go up.
-    for (let top = y; index < topBorder; index--) {
-
-        canvasArea[x, top];
-
+    while (Stack.length > 0) {
+        let toFill = Stack.pop();
+        canvas.floodplot(toFill[0], toFill[1], c);
     }
 
-    //Go down. 
+    canvas.display();
+}
 
-    //Go left.
+canvas.floodplot = (x, y, c) => {
 
-    //Go right.
+    if (!canvas.positionFilled(x, y)) canvas.plot(x, y, c);
 
-    let pixelStack = [[x, y]];
-
-    while (pixelStack.length) {
-        var newPos, x, y, pixelPos, reachLeft, reachRight;
-        newPos = pixelStack.pop();
-        x = newPos[0];
-        y = newPos[1];
-
-        pixelPos = (y * canvasWidth + x) * 4;
-        while (y-- >= drawingBoundTop && matchStartColor(pixelPos)) {
-            pixelPos -= canvasWidth * 4;
-        }
-        pixelPos += canvasWidth * 4;
-        ++y;
-        reachLeft = false;
-        reachRight = false;
-        while (y++ < canvasHeight - 1 && matchStartColor(pixelPos)) {
-            colorPixel(pixelPos);
-
-            if (x > 0) {
-                if (matchStartColor(pixelPos - 4)) {
-                    if (!reachLeft) {
-                        pixelStack.push([x - 1, y]);
-                        reachLeft = true;
-                    }
-                }
-                else if (reachLeft) {
-                    reachLeft = false;
-                }
-            }
-
-            if (x < canvasWidth - 1) {
-                if (matchStartColor(pixelPos + 4)) {
-                    if (!reachRight) {
-                        pixelStack.push([x + 1, y]);
-                        reachRight = true;
-                    }
-                }
-                else if (reachRight) {
-                    reachRight = false;
-                }
-            }
-
-            pixelPos += canvasWidth * 4;
-        }
-    }
-
+    if (!canvas.positionFilled(x, y - 1)) Stack.push([x, y - 1]);
+    if (!canvas.positionFilled(x + 1, y)) Stack.push([x + 1, y]);
+    if (!canvas.positionFilled(x, y + 1)) Stack.push([x, y + 1]);
+    if (!canvas.positionFilled(x - 1, y)) Stack.push([x - 1, y]);
 
 }
 
