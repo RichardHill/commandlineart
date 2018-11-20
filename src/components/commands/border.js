@@ -32,7 +32,6 @@ const border = (parameters, Canvas) => {
 
     Canvas.floodfill(x, y, c);
 
-    Canvas.display();
 }
 
 module.exports = border;

@@ -19,21 +19,21 @@ canvas.create = (width, height) => {
 
     canvasArea = new Array(height);
 
-    for (let index = 0; index < canvasArea.length; index++) {
+    for (let index = 0; index < canvasArea.length; index += 1) {
         canvasArea[index] = new Array(width);
     }
 
     //Add the top line of the canvas.
-    for (let topLineIndex = 0; topLineIndex < canvasArea[0].length; topLineIndex++) {
+    for (let topLineIndex = 0; topLineIndex < canvasArea[0].length; topLineIndex += 1) {
         canvas.plot(topLineIndex, 0, '-');
     }
 
     //And the lines inbetween
-    for (let firstIndex = 1; firstIndex < canvasArea.length - 1; firstIndex++) {
+    for (let firstIndex = 1; firstIndex < canvasArea.length - 1; firstIndex += 1) {
         //Set the first and last characters of the array.
         canvas.plot(0, firstIndex, '|');
 
-        for (let secondIndex = 1; secondIndex < canvasArea[firstIndex].length - 1; secondIndex++) {
+        for (let secondIndex = 1; secondIndex < canvasArea[firstIndex].length - 1; secondIndex += 1) {
             canvas.plot(secondIndex, firstIndex, ' ');
         }
 
@@ -41,7 +41,7 @@ canvas.create = (width, height) => {
     }
 
     //And the bottom line.
-    for (let index = 0; index < canvasArea[0].length; index++) {
+    for (let index = 0; index < canvasArea[0].length; index += 1) {
         canvas.plot(index, height - 1, '-');
     }
 
@@ -61,12 +61,7 @@ canvas.plot = (x, y, character, checkbounds = false) => {
 
 canvas.checkbounds = (x, y) => {
     //Remember to take into account the border
-    if ((x > 0 && x <= canvasArea[0].length - 1) && (y > 0 && y <= canvasArea.length)) {
-        return true;
-    }
-    else {
-        return false;
-    }
+    return (x > 0 && x <= canvasArea[0].length - 1) && (y > 0 && y <= canvasArea.length);
 }
 
 canvas.get = (x, y) => {
@@ -78,11 +73,11 @@ canvas.get = (x, y) => {
 canvas.count = () => {
     let count = 0;
 
-    for (let firstIndex = 1; firstIndex < canvasArea.length - 1; firstIndex++) {
-        for (let secondIndex = 1; secondIndex < canvasArea[firstIndex].length - 1; secondIndex++) {
+    for (let firstIndex = 1; firstIndex < canvasArea.length - 1; firstIndex += 1) {
+        for (let secondIndex = 1; secondIndex < canvasArea[firstIndex].length - 1; secondIndex += 1) {
             let location = canvasArea[firstIndex][secondIndex];
             if (location !== ' ') {
-                count++;
+                count += 1;
             }
         }
     }
@@ -137,10 +132,10 @@ canvas.floodplot = (x, y, c) => {
 
 canvas.clear = () => {
     //We should clear the canvas
-    for (let indexX = 1; indexX < canvasArea.length - 1; indexX++) {
+    for (let indexX = 1; indexX < canvasArea.length - 1; indexX += 1) {
         const element = canvasArea[indexX];
 
-        for (let indexY = 1; indexY < element.length - 1; indexY++) {
+        for (let indexY = 1; indexY < element.length - 1; indexY += 1) {
             let position = element[indexY];
             canvas.plot(indexX, indexY, ' ');
 

@@ -40,13 +40,13 @@ line = (parameters, Canvas) => {
     }
 
     if (y1 === y2) { //Horizontal.
-        for (let index = x1; index <= x2; index++) {
+        for (let index = x1; index <= x2; index += 1) {
             Canvas.plot(index, y1, 'x', true);
         }
     }
 
     if (x1 === x2) { // Vertical
-        for (let index = y1; index <= y2; index++) {
+        for (let index = y1; index <= y2; index += 1) {
             Canvas.plot(x1, index, 'x', true);
         }
     }

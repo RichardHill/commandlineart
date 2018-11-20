@@ -39,7 +39,7 @@ rectangle = (parameters, Canvas) => {
         let tmpX1 = x1;
         while (tmpX1 <= x2 + 1) {
             Canvas.plot(tmpX1, y1, '*');
-            tmpX1++;
+            tmpX1 += 1;
         }
 
         //Draw the extents
@@ -47,14 +47,14 @@ rectangle = (parameters, Canvas) => {
         while (tmpY1 <= y2) {
             Canvas.plot(x1, tmpY1, '*');
             Canvas.plot(x2 + 1, tmpY1, '*');
-            tmpY1++;
+            tmpY1 += 1;
         }
 
         //Draw the bottom line.
         let tmpX2 = x1;
         while (tmpX2 <= x2 + 1) {
             Canvas.plot(tmpX2, y2, '*');
-            tmpX2++;
+            tmpX2 += 1;
         }
 
         Canvas.display();
